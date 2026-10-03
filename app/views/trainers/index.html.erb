@@ -1,0 +1,15 @@
+<h1>Dresseurs</h1>
+<%= link_to "< Pokedex", root_path %>
+<div class="row">
+  <% @dresseurs.each do |dresseur| %>
+    <div class="col-12 col-md-6 col-lg-3">
+      <%= link_to trainer_path(dresseur) do %>
+        <div class="card-trainer my-3">
+          <%= cl_image_tag dresseur.photo.key %>
+          <p class="fs-4"><%= dresseur.name %></p>
+          <p><%= dresseur.age %> ans</p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

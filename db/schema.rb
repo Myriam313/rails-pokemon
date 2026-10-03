@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_02_192714) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_03_070659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_02_192714) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "dresseurs", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pokeballs", force: :cascade do |t|
+    t.date "caught_on"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "dresseur_id"
+    t.bigint "pokemon_id"
+    t.index ["dresseur_id"], name: "index_pokeballs_on_dresseur_id"
+    t.index ["pokemon_id"], name: "index_pokeballs_on_pokemon_id"
+  end
+
+  create_table "pokemons", force: :cascade do |t|
+    t.string "name"
+    t.string "element_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "pokeballs", "dresseurs"
+  add_foreign_key "pokeballs", "pokemons"
 end
